@@ -6,7 +6,7 @@
 u2v --> [2].
 u2v --> left, u2v, right.
 
-left --> ones,[0],ones,[0],ones.
+left--> ones,[0],ones,[0],ones.
 ones--> [].
 ones--> [1],ones.
 
@@ -41,7 +41,7 @@ lex(zebra,  pet).
 
 %-------------------------------------------------------------------%
 % PROBLEM 3
-% Sum, accepts a list of integer >= 1
+% DCG given a non-negative int, Sum, accepts a list of integer >= 1
 
 % sum(3,L,[])
 % | ?- s(3,L,[]).
@@ -49,10 +49,18 @@ lex(zebra,  pet).
 % L = [2,1];
 % L = [1,2];
 % L = [1,1,1];
+sum(N) --> [N].
+sum(N) --> [M], sum(R), {between(1,N,M)}, {R is N-M}, {R>0}.
+
+% sumX is an example of the sum predicate not using a DCG
+sumX(N,L) :- bd(N,1,L).
+sumX(0,_,[]).
+sumX(N,H2,[H|T]) :- between(H2,N,H), N2 is N-H, sumX(N2,H,T).
 
 % mkList(+Num, ?List) returns a list of ints from Num to 1
 % | ?- mkList(3,L).
 % L = [3,2,1];
-
+mkList(0, []).
+mkList(N, [N|N2List]) :- mkList(N2, N2List), N is N2+1.
 
 %-------------------------------------------------------------------%
