@@ -50,7 +50,7 @@ lex(zebra,  pet).
 % L = [1,2];
 % L = [1,1,1];
 sum(N) --> [N].
-sum(N) --> [M], sum(R), {between(1,N,M)}, {R is N-M}, {R>0}.
+sum(N) --> [M], sum(R), {mkList(N,List)}, {member(M,List)}, {R is N-M}, {R>0}.
 
 % sumX is an example of the sum predicate not using a DCG
 sumX(N,L) :- bd(N,1,L).
